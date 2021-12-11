@@ -1,15 +1,17 @@
 package cn.cruder.log.service;
 
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 /**
  * @Author: cruder
  * @Date: 2021/12/10/13:40
  */
-@Slf4j
 @Service
 public class TestLogService {
+
+    private static final Log log = LogFactory.getLog(TestLogService.class);
 
     public String logTest() {
         log.trace("trace ...");
