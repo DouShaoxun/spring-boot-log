@@ -15,6 +15,11 @@ public class TestController {
 
     private final TestLogService testLogService;
 
+    /**
+     * curl 'http://localhost:14591/log/test'
+     *
+     * @return string
+     */
     @GetMapping("/log/test")
     public String logTest() {
         testLogService.logTest();
