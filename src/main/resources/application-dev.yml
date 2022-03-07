@@ -1,0 +1,8 @@
+logging:
+  level:
+    cn:
+     cruder: debug
+    org:
+      springframework: debug
+server:
+  port: 14591
