@@ -8,9 +8,13 @@
     <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符
-             %M    是方法名
-             %line 是行号
+            <!--格式化输出：
+            %d表示日期
+            %thread表示线程名
+            %-5level：级别从左显示5个字符宽度
+            %msg：日志消息，%n是换行符
+            %M    是方法名
+            %line 是行号
              -->
             <pattern>%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %green([%thread]) %boldMagenta(%logger{20}.%M [%line]) - %cyan(%msg%n)
             </pattern>
@@ -19,17 +23,33 @@
 
     <!-- 文件输出-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
             <!--日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_HOME}/${APP_NAME}-%d{yyyy-MM-dd}.log</FileNamePattern>
-            <MaxHistory>30</MaxHistory>
+            <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
+            <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+            <FileNamePattern>${LOG_HOME}/%d{yyyy-MM}/${APP_NAME}-%d{yyyy-MM-dd}-%i.log.zip</FileNamePattern>
+
+            <!-- 日志文件过大会使的编辑器打开非常慢，因此设置日志最大50MB -->
+            <maxFileSize>50MB</maxFileSize>
+
+            <!-- 保存30天 -->
+            <maxHistory>30</maxHistory>
+
+            <!-- 日志文件保留的总的最大大小-->
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
+
         <encoder>
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{20}.%M [%line] - %msg%n</pattern>
         </encoder>
+
     </appender>
+
+
 
     <!-- 异步输出 -->
     <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
@@ -49,16 +69,31 @@
         <appender-ref ref="ASYNC_FILE"/>
     </root>
 
-        <!--
-        控制org.springframework包的日志打印，打印级别为“DEBUG”；
+    <!--
+    控制org.springframework包的日志打印，打印级别为“INFO”；
 
-        additivity属性为false，表示此loger的打印信息不再向上级传递，
+    additivity属性为false，表示此loger的打印信息不再向上级传递，
 
-        指定了名字为“CONSOLE”和“ASYNC_FILE”的appender。
+    指定了名字为“CONSOLE”和“ASYNC_FILE”的appender。
 
-        如果在 application.yml 中指定了级别 则xml配置中的被覆盖
-        -->
+    如果在 application.yml 中指定了级别 则xml配置中的被覆盖
+    -->
     <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </logger>
+
+
+    <!--
+    控制cn.cruder包的日志打印，打印级别为“DEBUG”；
+
+    additivity属性为false，表示此loger的打印信息不再向上级传递，
+
+    指定了名字为“CONSOLE”和“ASYNC_FILE”的appender。
+
+    如果在 application.yml 中指定了级别 则xml配置中的被覆盖
+    -->
+    <logger name="cn.cruder" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
     </logger>
