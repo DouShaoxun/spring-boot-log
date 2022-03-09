@@ -57,11 +57,8 @@ start() {
       -XX:HeapDumpPath=./  -jar \
       -Dspring.profiles.active=${ACTIVE} \
       ${JAR_PATH} >/dev/null 2>&1 &
-    now_date1=$(date +%Y-%m)
-    now_date2=$(date +%Y-%m-%d)
-    now_date3=$(date +%Y-%m-%d)
-#    $(date +%Y-%m-%d.%H)
-    echo "If you need to view the log, please execute ' tail -20f ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.HH).log '"
+    # ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
+    echo "log dir ' ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
   fi
 }
 
@@ -85,8 +82,8 @@ status() {
   if [ $? -eq "0" ]; then
     echo "${JAR_PATH} is running. Pid is ${pid}"
     parameter
-    now_date=$(date +%Y-%m-%d)
-    echo "If you need to view the log, please execute ' tail -20f ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.HH).log '"
+#    ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
+    echo "log dir ' ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ ' "
   else
     echo "${JAR_PATH} is NOT running."
   fi

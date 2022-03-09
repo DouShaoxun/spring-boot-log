@@ -16,8 +16,11 @@ import org.springframework.stereotype.Component;
 public class TaskService {
     private final TestLogService testLogService;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 100)
     public void task() {
-        testLogService.logTest();
+        for (int i = 0; i < 100; i++) {
+            testLogService.logTest();
+        }
+
     }
 }
