@@ -37,8 +37,8 @@
             <!-- 日志文件过大会使的编辑器打开非常慢，因此设置日志最大10MB -->
             <maxFileSize>10MB</maxFileSize>
 
-            <!-- 保存30天 -->
-            <maxHistory>30</maxHistory>
+            <!-- 保存90天 -->
+            <maxHistory>90</maxHistory>
 
             <!-- 日志文件保留的总的最大大小-->
             <totalSizeCap>10GB</totalSizeCap>
