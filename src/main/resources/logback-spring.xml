@@ -30,6 +30,7 @@
             <!--日志文件输出的文件名 -->
             <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
             <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+            <!-- HH 表示小时-->
             <FileNamePattern>${LOG_HOME}/%d{yyyy-MM}/%d{dd}/${APP_NAME}-%d{yyyy-MM-dd.HH}-%i.log.gz</FileNamePattern>
 
             <!-- 日志文件过大会使的编辑器打开非常慢，因此设置日志最大10MB -->
