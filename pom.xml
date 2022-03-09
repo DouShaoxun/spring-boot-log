@@ -50,6 +50,8 @@
     </dependencies>
 
     <build>
+        <!--   spring-boot-log.jar     -->
+        <finalName>spring-boot-log</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
