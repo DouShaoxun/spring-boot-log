@@ -57,8 +57,9 @@ start() {
       -XX:HeapDumpPath=./  -jar \
       -Dspring.profiles.active=${ACTIVE} \
       ${JAR_PATH} >/dev/null 2>&1 &
+
     # ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
-    echo "log dir ' ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
+    echo "log dir  ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
   fi
 }
 
@@ -82,11 +83,11 @@ status() {
   if [ $? -eq "0" ]; then
     echo "${JAR_PATH} is running. Pid is ${pid}"
     parameter
-#    ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
-    echo "log dir ' ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ ' "
   else
     echo "${JAR_PATH} is NOT running."
   fi
+  # ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
+  echo "log dir  ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
 }
 restart() {
   stop
