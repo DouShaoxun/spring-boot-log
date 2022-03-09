@@ -1,4 +1,4 @@
-package cn.cruder.log.test;
+package cn.cruder.log.tast;
 
 import cn.cruder.log.service.TestLogService;
 import lombok.AllArgsConstructor;
@@ -16,9 +16,10 @@ import org.springframework.stereotype.Component;
 public class TaskService {
     private final TestLogService testLogService;
 
-    @Scheduled(fixedDelay = 100)
+    @Scheduled(fixedDelay = 5000)
     public void task() {
-        for (int i = 0; i < 100; i++) {
+        //测试日志压缩 循环次数 根据需要调整
+        for (int i = 0; i < 1; i++) {
             testLogService.logTest();
         }
 
