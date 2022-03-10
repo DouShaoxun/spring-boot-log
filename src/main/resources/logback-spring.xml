@@ -21,7 +21,8 @@
             %M    是方法名
             %line 是行号
              -->
-            <pattern>%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %green([%thread]) %boldMagenta(%logger{20}.%M [%line]) - %cyan(%msg%n)
+            <pattern>
+                %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %green([%thread]) %boldMagenta(%logger{20}.%M [%line]) - %cyan(%msg%n)
             </pattern>
             <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
         </encoder>
@@ -30,24 +31,25 @@
     <!-- 文件输出-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!--日志文件输出的文件名 -->
-            <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
-            <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
-            <!-- HH 表示小时-->
-            <FileNamePattern>${LOG_HOME}/${APP_NAME}/%d{yyyy-MM}/%d{dd}/${APP_NAME}-%d{yyyy-MM-dd_HH}.%i.log.zip</FileNamePattern>
+        <!-- 按时间分割 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <!--
+                aux 的模式配置符，它的意思是说，可以在 fileNamePattern 配置中添加多个 %d 的日期符号，但是只能有一个是主要的，其它的只能做为辅助（auxiliary）
+                在 RollingCalendar 类中，日志的文件滚动方式就是根据主 %d 那个日期判断的。
+                -->
+                <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+                <!-- 文件的路径与名称，{yyyyMMdd-HH} 精确到小时，则按小时分割保存 -->
+                ${LOG_HOME}/${APP_NAME}/%d{yyyyMMdd,aux}/${APP_NAME}-%d{yyyyMMdd-HH}.log.zip
+            </fileNamePattern>
 
-            <!-- 日志文件过大会使的编辑器打开非常慢，因此设置日志最大50MB -->
-            <maxFileSize>50MB</maxFileSize>
-
-            <!--设置保存20天 一天24个文件，一小时生成一个-->
+            <!-- 如果当前是按小时保存，则保存 480 小时（= 20 天）内的日志 -->
             <MaxHistory>480</MaxHistory>
 
             <!-- 日志文件保留的总的最大大小-->
             <totalSizeCap>20GB</totalSizeCap>
 
         </rollingPolicy>
-
         <encoder>
             <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
@@ -55,7 +57,6 @@
         </encoder>
 
     </appender>
-
 
 
     <!-- 异步输出 -->
