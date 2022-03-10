@@ -59,7 +59,7 @@ start() {
       ${JAR_PATH} >/dev/null 2>&1 &
 
     # ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
-    echo "log dir  ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
+    echo "If you need to view the log, please execute ' tail -20f ${LOG_PREFIX}/$(date +%Y%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y%m%d-%H).log '"
   fi
 }
 
@@ -83,11 +83,10 @@ status() {
   if [ $? -eq "0" ]; then
     echo "${JAR_PATH} is running. Pid is ${pid}"
     parameter
+    echo "If you need to view the log, please execute ' tail -20f ${LOG_PREFIX}/$(date +%Y%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y%m%d-%H).log '"
   else
     echo "${JAR_PATH} is NOT running."
   fi
-  # ls ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/${PROJECT_NAME}-$(date +%Y-%m-%d.%H)
-  echo "log dir  ${LOG_PREFIX}/$(date +%Y-%m)/$(date +%d)/ "
 }
 restart() {
   stop
