@@ -30,20 +30,18 @@
     <!-- 文件输出-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-
             <!--日志文件输出的文件名 -->
             <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
             <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
             <!-- HH 表示小时-->
-            <FileNamePattern>${LOG_HOME}/${APP_NAME}/%d{yyyy-MM}/%d{dd}/${APP_NAME}-%d{yyyy-MM-dd}-%i.log.gz</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/${APP_NAME}/%d{yyyy-MM}/%d{dd}/${APP_NAME}-%d{yyyy-MM-dd_HH}.%i.log.zip</FileNamePattern>
 
             <!-- 日志文件过大会使的编辑器打开非常慢，因此设置日志最大50MB -->
             <maxFileSize>50MB</maxFileSize>
 
-            <!-- 保存60天 -->
-            <maxHistory>60</maxHistory>
+            <!--设置保存20天 一天24个文件，一小时生成一个-->
+            <MaxHistory>480</MaxHistory>
 
             <!-- 日志文件保留的总的最大大小-->
             <totalSizeCap>20GB</totalSizeCap>
