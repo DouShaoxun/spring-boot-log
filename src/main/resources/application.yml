@@ -1,7 +1,3 @@
-logging:
-  level:
-    cn:
-     cruder:
-      log : debug
-server:
-  port: 14591
+spring:
+  profiles:
+    active: dev

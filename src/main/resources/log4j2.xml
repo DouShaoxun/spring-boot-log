@@ -28,7 +28,7 @@
                   value="%style{%d}{bright,magenta} %highlight{%-5level} [%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow} (%style{%L}{bright,Cyan}) - %msg%n%style{%throwable}{red}"/>
 
         <!-- 单个日志文件最大大小，单位可以是KB, MB or GB -->
-        <Property name="MAX_SINGLE_FILE_SIZE">10MB</Property>
+        <Property name="MAX_SINGLE_FILE_SIZE">20MB</Property>
 
     </Properties>
 
@@ -46,8 +46,8 @@
         　　则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档
            filePattern指定文件重命名规则
         -->
-        <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log"
-                     filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
+        <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/${FILE_NAME}-info.log"
+                     filePattern="${FILE_PATH}/bak/%d{yyyy-MM-dd}/info/${FILE_NAME}-info-%d{yyyy-MM-dd}-%i.log.gz">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN_FILE}"/>
@@ -62,8 +62,8 @@
 
 
         <!-- 这个会打印出所有的warn及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-        <RollingFile name="RollingFileWarn" fileName="${FILE_PATH}/warn.log"
-                     filePattern="${FILE_PATH}/${FILE_NAME}-WARN-%d{yyyy-MM-dd}_%i.log.gz">
+        <RollingFile name="RollingFileWarn" fileName="${FILE_PATH}/${FILE_NAME}-warn.log"
+                     filePattern="${FILE_PATH}/bak/%d{yyyy-MM-dd}/warn/${FILE_NAME}-warn-%d{yyyy-MM-dd}-%i.log.gz">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN_FILE}"/>
@@ -78,8 +78,8 @@
 
 
         <!-- 这个会打印出所有的error及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-        <RollingFile name="RollingFileError" fileName="${FILE_PATH}/error.log"
-                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+        <RollingFile name="RollingFileError" fileName="${FILE_PATH}/${FILE_NAME}-error.log"
+                     filePattern="${FILE_PATH}/bak/%d{yyyy-MM-dd}/error/${FILE_NAME}-error-%d{yyyy-MM-dd}-%i.log.gz">
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN_FILE}"/>
@@ -92,20 +92,18 @@
             <DefaultRolloverStrategy max="240"/>
         </RollingFile>
 
-
     </appenders>
 
     <!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。-->
     <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
         <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
-        <logger name="org.mybatis" level="info" additivity="true">
+        <logger name="org.mybatis" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
 
-        <!--监控系统信息-->
         <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
-        <Logger name="org.springframework" level="info" additivity="true">
+        <Logger name="org.springframework" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 

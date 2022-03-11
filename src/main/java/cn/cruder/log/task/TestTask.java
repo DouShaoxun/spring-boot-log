@@ -15,7 +15,7 @@ public class TestTask {
     private final TestLogService testLogService;
 
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 3000)
     public void task() {
         //测试日志压缩 循环次数 根据需要调整
         for (int i = 0; i < 10; i++) {
