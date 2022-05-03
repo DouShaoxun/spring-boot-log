@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 public class TestLogService {
 
     public String logTest() {
-        log.trace("trace ...");
-        log.debug("debug ...");
-        log.warn("warn ...");
+        if (log.isTraceEnabled()) {
+            log.trace("trace ...");
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("debug ...");
+        }
         log.info("info ...");
+        log.warn("warn ...");
         log.error("error ...");
         return "hello";
     }
