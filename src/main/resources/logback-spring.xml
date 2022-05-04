@@ -40,7 +40,7 @@
                 -->
                 <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
                 <!-- 文件的路径与名称，{yyyyMMdd-HH} 精确到小时，则按小时分割保存 -->
-                ${LOG_HOME}/${APP_NAME}/%d{yyyyMM,aux}/%d{dd,aux}/${APP_NAME}-%d{yyyyMMdd-HH}.log.zip
+                ${LOG_HOME}/${APP_NAME}/%d{yyyy,aux}/%d{MM,aux}/%d{dd,aux}/${APP_NAME}-%d{yyyy-MM-dd-HH}.log.zip
             </fileNamePattern>
 
             <!-- 如果当前是按小时保存，则保存 2400 小时（= 100 天）内的日志 -->
