@@ -20,6 +20,8 @@
             %msg：日志消息，%n是换行符
             %M    是方法名
             %line 是行号
+            也可以再application.yml/application.properties中通过配置id方式配置日志
+            logging.pattern.console=%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}.%M [%line]) - %cyan(%msg%n)
              -->
             <pattern>
                 %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %green([%thread]) %boldMagenta(%logger{20}.%M [%line]) - %cyan(%msg%n)
